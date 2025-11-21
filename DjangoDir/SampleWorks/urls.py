@@ -12,4 +12,12 @@ urlpatterns = [
     path('hello-template/', views.hello),
     path('show-form/', views.showform),
     path('show-form/getform', views.getform),
+    path('newform/', views.newform),
+    path('newform/getnewform', views.getnewform),
+    path('collegeform/', views.collegeform),
+    path('collegeform/getcollegeform', views.getcollegeform),
+    path('newcollege/', views.newcollege),
+    path('newcollege/createcollege', views.createcollege),
+    path('updatingcollege/', views.updatingcollege),
+    path('updatingcollege/updatecollege', views.updatecollege)
 ]

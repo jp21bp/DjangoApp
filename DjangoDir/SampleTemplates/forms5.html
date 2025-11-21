@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <form action="updatecollege" method="POST">
+            <h1>Updating College</h1>
+            <p>Primary key: <input type="number" name="primary"></p>
+            {% csrf_token %}
+            <!-- <table>
+                {{f}}
+            </table> -->
+
+            <!-- {{f}} -->
+
+            <!-- {{f.as_table}} -->
+
+             {{f.as_p}}
+
+            <input type="submit">
+        </form>
+    </body>
+</html>

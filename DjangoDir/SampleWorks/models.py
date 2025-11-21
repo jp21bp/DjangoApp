@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 ### Recall, "on_delete" has 3 options:
     # CASCADE = deletes the object(row) containing the Foreign key
@@ -13,6 +14,10 @@ class College(models.Model):
     name = models.CharField(max_length=50)
     age = models.IntegerField()
     website = models.URLField()
+
+
+
+
 
 class Principal(models.Model):
     CollegeID = models.OneToOneField(
