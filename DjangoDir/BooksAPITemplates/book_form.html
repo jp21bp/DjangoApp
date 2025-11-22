@@ -1,0 +1,55 @@
+<html>
+    <body>
+        <h1>Book Details</h1>
+        <button type="button" onclick="allMethod()">Get all books</button>
+        <form id='bookForm' action='api/' method="GET">
+            {% csrf_token %}
+            {{form.as_p}}
+            <!-- <input type="submit"> -->
+            <button type="button" onclick="oneGetMethod()">Get one book</button>
+            <button type="button" onclick="onePostMethod()">Create a book</button>
+        </form>
+        <script>
+        const book_ids = document.getElementsByName('book_id');
+        book_ids[0].setAttribute('required', 'true');
+
+        function allMethod() {
+            const form = document.getElementById('bookForm');
+            form.action = 'books/'; //Add action
+            console.log(form.action)
+            form.submit(); // Submit the form
+        }
+
+        function oneGetMethod(){
+            const form = document.getElementById('bookForm');
+            const book_ids = document.getElementsByName('book_id');
+            let book_id = book_ids[0].value;
+            if (!book_id) {
+                book_id = "-1";
+            }
+            let action = `books/${book_id}`;
+            form.action = action;
+            console.log(book_id)
+            console.log(book_ids[0]);
+            console.log(form.action);
+            form.submit(); // Submit the form
+        }
+
+        
+        function onePostMethod(){
+            const form = document.getElementById('bookForm');
+            const book_ids = document.getElementsByName('book_id');
+            book_ids[0].setAttribute('required', 'true');
+            let book_id = book_ids[0].value;
+            if (!book_id) {
+                book_id = "-1";
+            }
+            let action = `books/${book_id}`;
+            form.action = action;
+            form.method = 'POST';
+            console.log(form.action);
+            form.submit(); // Submit the form
+        }
+        </script>
+    </body>
+</html>

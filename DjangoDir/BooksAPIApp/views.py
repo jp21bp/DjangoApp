@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.forms.models import model_to_dict
+from django.template import loader
+from .forms import BookDetails
+from .models import Books
 
 # Note: results of API are delivered in JSON
     # Thus use 'model_to_dict'
@@ -20,6 +23,9 @@ def home(request):
         content = 'Home: not a GET'
         return HttpResponse(content)
     
+def initial_books(request):
+    form = BookDetails()
+    return render(request, "book_form.html", {"form": form})
 
 def all_books(request):
     #Delivers all books in DB
@@ -39,7 +45,7 @@ def all_books(request):
     return
 
 
-def one_book(request, bookId):
+def one_book(request, pk):
     # Shows only a single book
     # GET Features:
         # If request book that no exists, give 404
@@ -54,6 +60,32 @@ def one_book(request, bookId):
         return HttpResponse(content)
     if request.method == 'POST':
         content = "<h1>one_books POST</h1>"
+        # # Steps:
+        #     # 1. Createa a "Books" model/table
+        #     # 2. Create a form for "CreateBook"
+        #     # 3. Extract the details from the form
+        #     # 4. Save the details to the model
+        #     # 5. Return HTTP
+        # # Step 1: Done beforehand
+        # # Step 2: Create form
+        # book = BookDetails(request.POST)
+        # # Step 3: Extract details
+        # book_id = request.POST['book_id']
+        # title = request.POST['title']
+        # author = request.POST['author']
+        # price = request.POST['price']
+        # inventory = request.POST['inventory']
+        # # Step 4: Save book to DB
+        # book.save()
+        # # Step 5: return HTTP
+        # template = loader.get_template("confirmed_creation.html")
+        # context = {
+        #     'book_id': book_id,
+        #     'title': title,
+        #     'author': author,
+        #     'price': price,
+        #     'inventory': inventory,
+        # }
         return HttpResponse(content)
     if request.method == 'PUT':
         content = "<h1>one_books PUT</h1>"

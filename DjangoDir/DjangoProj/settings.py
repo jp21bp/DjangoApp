@@ -56,7 +56,7 @@ ROOT_URLCONF = 'DjangoProj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['SampleTemplates'],
+        'DIRS': ['SampleTemplates', 'BooksAPITemplates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
