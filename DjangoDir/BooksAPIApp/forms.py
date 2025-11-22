@@ -7,4 +7,4 @@ class BookDetails(ModelForm):
         model = Books
         fields = "__all__"
     # Making "book_id" required
-    book_id = forms.IntegerField(required=True)
+    # book_id = forms.IntegerField(required=True)

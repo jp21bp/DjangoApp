@@ -40,6 +40,7 @@ def all_books(request):
         content = "<h1>all_books GET</h1>"
         return HttpResponse(content)
     if request.method == 'POST':
+        # It should never get here
         content = "<h1>all_books POST</h1>"
         return HttpResponse(content)
     return
@@ -59,34 +60,49 @@ def one_book(request, pk):
         content = "<h1>one_books GET</h1>"
         return HttpResponse(content)
     if request.method == 'POST':
-        content = "<h1>one_books POST</h1>"
-        # # Steps:
-        #     # 1. Createa a "Books" model/table
-        #     # 2. Create a form for "CreateBook"
-        #     # 3. Extract the details from the form
-        #     # 4. Save the details to the model
-        #     # 5. Return HTTP
-        # # Step 1: Done beforehand
-        # # Step 2: Create form
-        # book = BookDetails(request.POST)
-        # # Step 3: Extract details
-        # book_id = request.POST['book_id']
-        # title = request.POST['title']
-        # author = request.POST['author']
-        # price = request.POST['price']
-        # inventory = request.POST['inventory']
-        # # Step 4: Save book to DB
-        # book.save()
-        # # Step 5: return HTTP
-        # template = loader.get_template("confirmed_creation.html")
-        # context = {
-        #     'book_id': book_id,
-        #     'title': title,
-        #     'author': author,
-        #     'price': price,
-        #     'inventory': inventory,
-        # }
-        return HttpResponse(content)
+        # content = "<h1>one_books POST</h1>"
+        # Steps:
+            # 1. Createa a "Books" model/table
+            # 2. Create a form for "CreateBook"
+            # 3. Extract the details from the form
+            # 4. Save the details to the model
+            # 5. Return HTTP
+        # Step 1: Done beforehand
+        # Step 2: Create form
+        # Step 3: Extract details
+        request_copy = request.POST.copy()
+        # print(type(request.POST['book_id']))
+        # print(request_copy)
+        book_id = request_copy['book_id']
+        if book_id == "-1":
+            print('!'*10)  #Shows up on terminal
+            try:
+                latest_book = Books.objects.latest('book_id')
+                latest_id = latest_book.book_id
+            except:
+                latest_id = -1
+            book_id = latest_id + 1
+            request_copy['book_id'] = str(book_id)
+            print(book_id)
+            # book_id = str(int(latest_id) + 1)
+            # book.book_id = book_id
+        title = request_copy['title']
+        author = request_copy['author']
+        price = request_copy['price']
+        inventory = request_copy['inventory']
+        # Step 4: Save book to DB
+        book = BookDetails(request_copy)
+        book.save()
+        # Step 5: return HTTP
+        template = loader.get_template("confirmed_creation.html")
+        context = {
+            'book_id': book_id,
+            'title': title,
+            'author': author,
+            'price': price,
+            'inventory': inventory,
+        }
+        return HttpResponse(template.render(context, request))
     if request.method == 'PUT':
         content = "<h1>one_books PUT</h1>"
         return HttpResponse(content)
