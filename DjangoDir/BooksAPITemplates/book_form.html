@@ -27,7 +27,9 @@
             if (!book_id) {
                 book_ids[0].setAttribute('value', '-1');
             }
+            book_id = book_ids[0].value;
             let action = `books/${book_id}`;
+            form.action = action;
             // form.action = action;
             // console.log(book_id)
             // console.log(book_ids[0]);

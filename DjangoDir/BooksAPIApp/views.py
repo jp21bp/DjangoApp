@@ -57,8 +57,22 @@ def one_book(request, pk):
     # DELETE Features:
         # Delete a single book
     if request.method == 'GET':
-        content = "<h1>one_books GET</h1>"
-        return HttpResponse(content)
+        # content = "<h1>one_books GET</h1>"
+        book = get_object_or_404(Books, pk = request.GET['book_id'])
+        book_id = book.book_id
+        title = book.title
+        author = book.author
+        price = book.price
+        inventory = book.inventory
+        template = loader.get_template("confirmed_creation.html")
+        context = {
+            'book_id': book_id,
+            'title': title,
+            'author': author,
+            'price': price,
+            'inventory': inventory,
+        }
+        return HttpResponse(template.render(context, request))
     if request.method == 'POST':
         # content = "<h1>one_books POST</h1>"
         # Steps:
@@ -75,7 +89,7 @@ def one_book(request, pk):
         # print(request_copy)
         book_id = request_copy['book_id']
         if book_id == "-1":
-            print('!'*10)  #Shows up on terminal
+            # print('!'*10)  #Shows up on terminal
             try:
                 latest_book = Books.objects.latest('book_id')
                 latest_id = latest_book.book_id
