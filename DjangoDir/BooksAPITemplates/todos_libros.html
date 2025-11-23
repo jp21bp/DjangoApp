@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <h1>Todos los libros:</h1>
+        {% for libro in libros %}
+            <h3>===========================================</h3>
+            <h3>Book Id: {{libro.book_id}}</h3>
+            <h3>Title: {{libro.title}}</h3>
+            <h3>Author: {{libro.author}}</h3>
+            <h3>Price: {{libro.price}}</h3>
+            <h3>Books shipped in: {{libro.inventory}}</h3>
+        {% endfor %}
+    </body>
+</html>

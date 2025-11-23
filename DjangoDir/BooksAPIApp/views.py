@@ -38,7 +38,10 @@ def all_books(request):
             # Missing fields => status 400
     if request.method == 'GET':
         content = "<h1>all_books GET</h1>"
-        return HttpResponse(content)
+        libros = Books.objects.all()
+        template = loader.get_template("todos_libros.html")
+        context = {"libros": libros}
+        return HttpResponse(template.render(context, request))
     if request.method == 'POST':
         # It should never get here
         content = "<h1>all_books POST</h1>"
@@ -64,7 +67,7 @@ def one_book(request, pk):
         author = book.author
         price = book.price
         inventory = book.inventory
-        template = loader.get_template("confirmed_creation.html")
+        template = loader.get_template("confirmed_retrieved.html")
         context = {
             'book_id': book_id,
             'title': title,
@@ -97,7 +100,7 @@ def one_book(request, pk):
                 latest_id = -1
             book_id = latest_id + 1
             request_copy['book_id'] = str(book_id)
-            print(book_id)
+            # print(book_id)
             # book_id = str(int(latest_id) + 1)
             # book.book_id = book_id
         title = request_copy['title']
