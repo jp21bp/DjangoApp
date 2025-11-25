@@ -43,6 +43,17 @@ def menu_items(request):
                             #for separate items
         # serialized_item = MenuItemSerializer(items, many=True)
             #"many=True" needed when applying serializer to many instances
+        
+        #Implementing Filtering
+        category_name = request.query_params.get('category')
+        to_price = request.query_params.get('to_price')
+        search = request.query_params.get('search')
+        if category_name:
+            items = items.filter(category__title=category_name)
+        if to_price:
+            items = items.filter(price__lte=to_price)
+        if search:
+            items = items.filter(price__endswith=search)
         serialized_item = MenuItemSerializer(
             items,
             many=True,

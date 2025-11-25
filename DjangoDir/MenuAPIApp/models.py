@@ -13,6 +13,7 @@ class Category(models.Model):
 class MenuItems(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+        #This comes off as a "CharField", not an int/float
     inventory = models.SmallIntegerField()
     category = models.ForeignKey(
         Category,
