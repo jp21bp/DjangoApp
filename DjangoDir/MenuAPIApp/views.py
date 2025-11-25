@@ -1,10 +1,12 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes
 from .models import MenuItems, Category
 from .serializers import MenuItemSerializer, CategorySerializer
 from django.shortcuts import get_object_or_404
-
+from rest_framework.renderers import TemplateHTMLRenderer, StaticHTMLRenderer
+from rest_framework_csv.renderers import CSVRenderer
+from rest_framework_yaml.renderers import YAMLRenderer
 
 
 # # (1)Using generics-views w/ regular ModelSerializer
@@ -71,10 +73,20 @@ def category_detail(request, pk):
     serialzed_category = CategorySerializer(category)
     return Response(serialzed_category.data)
 
+@api_view()
+@renderer_classes([TemplateHTMLRenderer])
+# @renderer_classes([CSVRenderer])
+# @renderer_classes([YAMLRenderer])
+def menu(request):
+    items = MenuItems.objects.select_related('category').all()
+        #Recall: "select_related" = for efficiency
+    serialized_item = MenuItemSerializer(items, many=True)
+    return Response({'data': serialized_item.data}, template_name='menu-items.html')
 
-
-
-
-
+@api_view()
+@renderer_classes([StaticHTMLRenderer])
+def welcome(request):
+    data = '<html><body><h1>Welcome</h1></body></html>'
+    return Response(data)
 
 

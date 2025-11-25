@@ -60,7 +60,11 @@ ROOT_URLCONF = 'DjangoProj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['SampleTemplates', 'BooksAPITemplates'],
+        'DIRS': [
+            'SampleTemplates', 
+            'BooksAPITemplates',
+            'MenuAPITemplates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +135,11 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.TemplateHTMLRenderer',
+        # 'rest_framework.renderers.StaticHTMLRenderer',
         'rest_framework_xml.renderers.XMLRenderer',
+        # 'rest_framework_csv.renderers.CSVRenderer',
+        # 'rest_framework_yaml.renderers.YAMLRenderer',
     ]
 }
 
