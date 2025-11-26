@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     # path('menu-items', views.MenuItemsView.as_view()), #(1)
@@ -12,6 +13,7 @@ urlpatterns = [
     path('welcome/', views.welcome),
     path('articulos/', views.MenuItemsViewSet.as_view({'get':'list'})),
     path('articulos/<int:pk>', views.MenuItemsViewSet.as_view({'get':'retrieve'})),
+    path('tokens/', obtain_auth_token),
 ]
 
 
