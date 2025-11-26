@@ -9,7 +9,9 @@ urlpatterns = [
     path('category/<int:pk>', views.category_detail, name='category-detail'), #(3)
         #"name" is needed when using "HyperlinkRelatedField" in "serializers.py"
     path('menu/', views.menu),
-    path('welcome/', views.welcome)
+    path('welcome/', views.welcome),
+    path('articulos/', views.MenuItemsViewSet.as_view({'get':'list'})),
+    path('articulos/<int:pk>', views.MenuItemsViewSet.as_view({'get':'retrieve'})),
 ]
 
 

@@ -48,6 +48,15 @@ wheels = [
 ]
 
 [[package]]
+name = "django-filter"
+version = "1.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/db/12/491d519f5bee93709083c726b020ff9f09b95f32de36ae9023fbc89a21e4/django-filter-1.1.0.tar.gz", hash = "sha256:ec0ef1ba23ef95b1620f5d481334413700fb33f45cd76d56a63f4b0b1d76976a", size = 127831, upload-time = "2017-10-19T09:29:01.392Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ee/99/eb6f20b0ca4e2800279963599971e70c71767b9d151f44fcbcd1caa19f32/django_filter-1.1.0-py2.py3-none-any.whl", hash = "sha256:ea204242ea83790e1512c9d0d8255002a652a6f4986e93cee664f28955ba0c22", size = 45536, upload-time = "2017-10-19T09:28:57.915Z" },
+]
+
+[[package]]
 name = "django-rest-framework"
 version = "0.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -78,6 +87,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/3c/5d/d2862d98a1eaca0d05d0e2d0a4278fbcd8ff8353460edfb18c1d9969036b/djangorestframework-csv-3.0.2.tar.gz", hash = "sha256:b269b692feda1971e1342f395a21d339c6a16d2961ff64357a9a6188f27af10f", size = 32039, upload-time = "2023-12-12T03:38:15.239Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e0/de/d063e4e0e0a7225a2a2b8e76fa690b12a9deb0c5c60f73afe0cffe9da38a/djangorestframework_csv-3.0.2-py3-none-any.whl", hash = "sha256:d1bcfbaaeaa5145af6bb0985a36a5bbf2f853d9961c722f69c7b0c9c3bcc269a", size = 49681, upload-time = "2023-12-12T03:38:13.598Z" },
+]
+
+[[package]]
+name = "djangorestframework-filters"
+version = "0.11.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django-filter" },
+    { name = "djangorestframework" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c5/e7/e94c0834cc345b160d51bc57e6145c4903ce0d08db0cdd3d44fa43cc2059/djangorestframework-filters-0.11.1.tar.gz", hash = "sha256:f9249bd6440574ff8788a8994407bf5974e461fbcf65c0bd4785f9e71836768a", size = 13673, upload-time = "2019-03-21T18:33:11.205Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/20/3506c608b3ec79a67c24b70702322ac46bc73e6217a0d9239dfef83e20c6/djangorestframework_filters-0.11.1-py2.py3-none-any.whl", hash = "sha256:a7683bfbeb4eb2a246fbba830f80062fcff9697101ca87a8b7327346284aa518", size = 12726, upload-time = "2019-03-21T18:33:09.681Z" },
 ]
 
 [[package]]
@@ -175,8 +197,10 @@ source = { virtual = "." }
 dependencies = [
     { name = "django" },
     { name = "django-debug-toolbar" },
+    { name = "django-filter" },
     { name = "django-rest-framework" },
     { name = "djangorestframework-csv" },
+    { name = "djangorestframework-filters" },
     { name = "djangorestframework-xml" },
     { name = "djangorestframework-yaml" },
 ]
@@ -185,8 +209,10 @@ dependencies = [
 requires-dist = [
     { name = "django", specifier = ">=5.2.8" },
     { name = "django-debug-toolbar", specifier = ">=6.1.0" },
+    { name = "django-filter", specifier = ">=1.1.0" },
     { name = "django-rest-framework", specifier = ">=0.1.0" },
     { name = "djangorestframework-csv", specifier = ">=3.0.2" },
+    { name = "djangorestframework-filters", specifier = ">=0.11.1" },
     { name = "djangorestframework-xml", specifier = ">=2.0.0" },
     { name = "djangorestframework-yaml", specifier = ">=2.0.0" },
 ]

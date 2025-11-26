@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.renderers import TemplateHTMLRenderer, StaticHTMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
-
+from django.core.paginator import Paginator, EmptyPage
+from rest_framework.viewsets import ModelViewSet
 
 # # (1)Using generics-views w/ regular ModelSerializer
 # class MenuItemsView(generics.ListCreateAPIView):
@@ -44,11 +45,13 @@ def menu_items(request):
         # serialized_item = MenuItemSerializer(items, many=True)
             #"many=True" needed when applying serializer to many instances
         
-        #Implementing Filtering
+        #Implementing query params
         category_name = request.query_params.get('category')
         to_price = request.query_params.get('to_price')
         search = request.query_params.get('search')
         ordering = request.query_params.get('ordering')
+        perpage = request.query_params.get('per_page', default=2)
+        page = request.query_params.get('page', default=1)
         if category_name:
             items = items.filter(category__title=category_name)
         if to_price:
@@ -58,6 +61,12 @@ def menu_items(request):
         if ordering:
             ordering_fields = ordering.split(",")
             items = items.order_by(*ordering_fields)
+
+        paginator = Paginator(items, per_page=perpage)
+        try:
+            items = paginator.page(number=page)
+        except EmptyPage:
+            items = []
         serialized_item = MenuItemSerializer(
             items,
             many=True,
@@ -103,5 +112,21 @@ def menu(request):
 def welcome(request):
     data = '<html><body><h1>Welcome</h1></body></html>'
     return Response(data)
+
+
+
+
+#### Class-views
+class MenuItemsViewSet(ModelViewSet):
+    queryset = MenuItems.objects.all()
+    serializer_class = MenuItemSerializer
+    ordering_fields = ['price', 'inventory']
+    search_fields = ['title','category__title']
+
+
+
+
+
+
 
 
