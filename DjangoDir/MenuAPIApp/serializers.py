@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import MenuItems, Category
 from decimal import Decimal
-
+import bleach
 
 # # (1) Regular "ModelSerializer"
 # class MenuItemSerializer(serializers.ModelSerializer):
@@ -44,6 +44,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
         return product.price * Decimal(1.1)
 
     def validate(self, attrs):
+        attrs['title'] = bleach.clean(attrs['title'])
         if(attrs['price'] < 2):
             raise serializers.ValidationError('price > 2')
         if(attrs['inventory'] < 0):
