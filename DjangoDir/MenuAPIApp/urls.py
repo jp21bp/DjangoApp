@@ -14,6 +14,7 @@ urlpatterns = [
     path('articulos/', views.MenuItemsViewSet.as_view({'get':'list'})),
     path('articulos/<int:pk>', views.MenuItemsViewSet.as_view({'get':'retrieve'})),
     path('tokens/', obtain_auth_token),
+    path('secret/', views.secret),
 ]
 
 

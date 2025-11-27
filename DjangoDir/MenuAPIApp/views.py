@@ -1,6 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from .models import MenuItems, Category
 from .serializers import MenuItemSerializer, CategorySerializer
 from django.shortcuts import get_object_or_404
@@ -9,6 +9,7 @@ from rest_framework_csv.renderers import CSVRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
 from django.core.paginator import Paginator, EmptyPage
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 # # (1)Using generics-views w/ regular ModelSerializer
 # class MenuItemsView(generics.ListCreateAPIView):
@@ -97,6 +98,8 @@ def category_detail(request, pk):
     serialzed_category = CategorySerializer(category)
     return Response(serialzed_category.data)
 
+
+#### Playing with Renderers
 @api_view()
 @renderer_classes([TemplateHTMLRenderer])
 # @renderer_classes([CSVRenderer])
@@ -114,8 +117,6 @@ def welcome(request):
     return Response(data)
 
 
-
-
 #### Class-views
 class MenuItemsViewSet(ModelViewSet):
     queryset = MenuItems.objects.all()
@@ -125,6 +126,13 @@ class MenuItemsViewSet(ModelViewSet):
 
 
 
+#### Token-based authentication view
+@api_view()
+@permission_classes([IsAuthenticated])
+def secret(request):
+    return Response({'msg': "secret msg"})
+        # ONly returns if user is authenticated
+        # Can be checked with Insomnia
 
 
 

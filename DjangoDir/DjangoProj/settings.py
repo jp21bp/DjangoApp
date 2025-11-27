@@ -139,16 +139,19 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.TemplateHTMLRenderer',
         # 'rest_framework.renderers.StaticHTMLRenderer',
         'rest_framework_xml.renderers.XMLRenderer',
-        # 'rest_framework_csv.renderers.CSVRenderer',
-        # 'rest_framework_yaml.renderers.YAMLRenderer',
+        'rest_framework_csv.renderers.CSVRenderer',
+        'rest_framework_yaml.renderers.YAMLRenderer',
     ],
     'DEFAULT_FILTER_BACKENDS':[
         # 'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.OrderingFilter',
-        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',    #Only for ModelViewSet
+        'rest_framework.filters.SearchFilter',      #Only for ModelViewSet
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',   #Only for ModelViewSet
+    'PAGE_SIZE': 2, #Only for ModelViewSet
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 
