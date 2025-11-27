@@ -15,6 +15,8 @@ urlpatterns = [
     path('articulos/<int:pk>', views.MenuItemsViewSet.as_view({'get':'retrieve'})),
     path('tokens/', obtain_auth_token),
     path('secret/', views.secret),
+    path('throttle/', views.throttle_check),
+    path('custom-throttle/', views.custom_throttle),
 ]
 
 

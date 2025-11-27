@@ -151,7 +151,12 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2, #Only for ModelViewSet
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_THROTTLE_RATES':{
+        'anon': '2/min', # can be any timeframe: sec, min, hour, day
+        'user': '3/min',
+        'ten': '10/min',
+    }
 }
 
 
