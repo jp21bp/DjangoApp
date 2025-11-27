@@ -40,13 +40,22 @@ class MenuItemSerializer(serializers.ModelSerializer):
     #     queryset = Category.objects.all(),
     #     view_name='category-detail',
     # )
+    def calculate_tax(self, product:MenuItems):
+        return product.price * Decimal(1.1)
+
+    def validate(self, attrs):
+        if(attrs['price'] < 2):
+            raise serializers.ValidationError('price > 2')
+        if(attrs['inventory'] < 0):
+            raise serializers.ValidationError('inventory < 0')
+        return super().validate(attrs)
+
     class Meta:
         model = MenuItems
         fields = ['id', 'title', 'price', 'stock', \
                   'price_after_tax', 'category', 'category_id']
 
-    def calculate_tax(self, product:MenuItems):
-        return product.price * Decimal(1.1)
+    
 
 
 
